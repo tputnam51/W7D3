@@ -13,12 +13,6 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  subject(:user) do 
-    FactoryBot.build(:user,
-    username: "Johnny Apple",
-    password: "password")
-  end
-
   describe 'validations' do
     it {should validate_presence_of(:username)}
     it {should validate_presence_of(:password_digest)}
@@ -46,21 +40,30 @@ RSpec.describe User, type: :model do
   end
 
   describe '#is_password?' do
-
-    context '' do
-
+    context 'Checks password' do
+      it 'verifies if the password is correct' do
+        expect(User.is_password?('password')).to be true
+      end
     end
 
-    
+    context 'Checks for wrong password' do
+      it 'verifies if the password is incorrect' do
+        expect(User.is_password?('wrongpassword')).to be false
+      end
+    end
   end
 
   describe '#reset_session_token' do
+    context 'Starts a session' do
+      it 'sets session token for user' do
+        current_session_token = user.session_token
+        user.reset_session_token
+        expect(user.session_token).to_not eq(current_session_token)
+      end
 
-     context '' do
-    
+      it 'returns a new session token' do
+        expect(user.reset_session_token).to eq(user.session_token)
+      end
     end
-
   end
- 
-
 end
