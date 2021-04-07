@@ -47,7 +47,4 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe '' do
-    
-  end
 end

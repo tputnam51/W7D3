@@ -22,7 +22,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '::find_by_credentials' do
-
+    before{user.save!}
     context 'when valid credentials was given' do
 
       it 'return valid user credentials' do 
